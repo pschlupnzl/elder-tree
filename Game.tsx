@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import GrassField from "./src/components/GrassField";
 import Character from "./src/components/Character";
 import { StyleSheet, View } from "react-native";
 import {
@@ -120,6 +121,8 @@ export default function Game() {
           r={170}
           color="#A8C686"
         />
+
+        <GrassField />
 
         {/* First tree trunk */}
         <Rect
