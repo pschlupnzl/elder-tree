@@ -7,8 +7,63 @@ import {
   Rect,
 } from "@shopify/react-native-skia";
 
+const VIEW_LEFT = 50;
+const VIEW_RIGHT = 750;
+
 export default function Game() {
   const [playerX, setPlayerX] = useState(400);
+  const [keys, setKeys] = useState({
+    left: false,
+    right: false,
+  });
+
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setKeys((current) => (!current.right ? { ...current, right: true } : current));
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setKeys((current) => (!current.left ? { ...current, left: true } : current));
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        setKeys((current) => ({ ...current, right: false }));
+      }
+      if (event.key === "ArrowLeft") {
+        setKeys((current) => ({ ...current, left: false }));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
+
+  useEffect(() => {
+    const move = () => {
+      if (keys.right) {
+        setPlayerX((x) => Math.min(x + 3, 750));
+      }
+
+      if (keys.left) {
+        setPlayerX((x) => Math.max(x - 3, 50));
+      }
+    };
+
+    const interval = setInterval(move, 16);
+
+    return () => clearInterval(interval);
+  }, [keys]);
+
   return (
     <View style={styles.container}>
       <Canvas style={styles.canvas}>
@@ -60,7 +115,7 @@ export default function Game() {
         />
 
         {/* Player */}
-        <Character x={400} />
+        <Character x={playerX} />
 
       </Canvas>
     </View>
