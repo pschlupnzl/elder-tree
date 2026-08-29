@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Character from "./src/components/Character";
 import { StyleSheet, View } from "react-native";
 import {
   Canvas,
@@ -7,6 +8,7 @@ import {
 } from "@shopify/react-native-skia";
 
 export default function Game() {
+  const [playerX, setPlayerX] = useState(400);
   return (
     <View style={styles.container}>
       <Canvas style={styles.canvas}>
@@ -30,7 +32,7 @@ export default function Game() {
           y={350}
           width={800}
           height={250}
-          color="#6B8E23"
+          color="#718C4A"
         />
 
         <Circle
@@ -39,6 +41,27 @@ export default function Game() {
           r={170}
           color="#A8C686"
         />
+
+        {/* First tree trunk */}
+        <Rect
+          x={170}
+          y={220}
+          width={45}
+          height={180}
+          color="#6B4F35"
+        />
+
+        {/* First tree canopy */}
+        <Circle
+          cx={192}
+          cy={190}
+          r={90}
+          color="#4F6F3A"
+        />
+
+        {/* Player */}
+        <Character x={400} />
+
       </Canvas>
     </View>
   );
