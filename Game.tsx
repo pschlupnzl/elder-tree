@@ -7,6 +7,7 @@ import {
   Circle,
   Rect,
 } from "@shopify/react-native-skia";
+import Tree from "./src/components/Tree";
 
 const VIEW_TOP = 50;
 const VIEW_BOTTOM = 480;
@@ -124,22 +125,7 @@ export default function Game() {
 
         <GrassField />
 
-        {/* First tree trunk */}
-        <Rect
-          x={170}
-          y={220}
-          width={45}
-          height={180}
-          color="#6B4F35"
-        />
-
-        {/* First tree canopy */}
-        <Circle
-          cx={192}
-          cy={190}
-          r={90}
-          color="#4F6F3A"
-        />
+        <Tree x={192} y={220} />
 
         {/* Player */}
         <Character x={playerX} y={playerY} />
