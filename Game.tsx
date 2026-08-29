@@ -7,14 +7,19 @@ import {
   Rect,
 } from "@shopify/react-native-skia";
 
+const VIEW_TOP = 50;
+const VIEW_BOTTOM = 480;
 const VIEW_LEFT = 50;
 const VIEW_RIGHT = 750;
 
 export default function Game() {
   const [playerX, setPlayerX] = useState(400);
+  const [playerY, setPlayerY] = useState(390);
   const [keys, setKeys] = useState({
     left: false,
     right: false,
+    up: false,
+    down: false
   });
 
 
@@ -28,6 +33,14 @@ export default function Game() {
         event.preventDefault();
         setKeys((current) => (!current.left ? { ...current, left: true } : current));
       }
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setKeys((current) => (!current.up ? { ...current, up: true } : current));
+      }
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setKeys((current) => (!current.down ? { ...current, down: true } : current));
+      }
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
@@ -36,6 +49,12 @@ export default function Game() {
       }
       if (event.key === "ArrowLeft") {
         setKeys((current) => ({ ...current, left: false }));
+      }
+      if (event.key === "ArrowUp") {
+        setKeys((current) => ({ ...current, up: false }));
+      }
+      if (event.key === "ArrowDown") {
+        setKeys((current) => ({ ...current, down: false }));
       }
     };
 
@@ -51,11 +70,16 @@ export default function Game() {
   useEffect(() => {
     const move = () => {
       if (keys.right) {
-        setPlayerX((x) => Math.min(x + 3, 750));
+        setPlayerX((x) => Math.min(x + 3, VIEW_RIGHT));
       }
-
       if (keys.left) {
-        setPlayerX((x) => Math.max(x - 3, 50));
+        setPlayerX((x) => Math.max(x - 3, VIEW_LEFT));
+      }
+      if (keys.down) {
+        setPlayerY((y) => Math.min(y + 3, VIEW_BOTTOM));
+      }
+      if (keys.up) {
+        setPlayerY((y) => Math.max(y - 3, VIEW_TOP));
       }
     };
 
@@ -115,7 +139,7 @@ export default function Game() {
         />
 
         {/* Player */}
-        <Character x={playerX} />
+        <Character x={playerX} y={playerY} />
 
       </Canvas>
     </View>

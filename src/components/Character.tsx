@@ -1,25 +1,31 @@
 import React from "react";
-import { Circle, Rect, rotate } from "@shopify/react-native-skia";
+import { Circle, Group, Rect, rotate } from "@shopify/react-native-skia";
 
 type CharacterProps = {
     x: number;
+    y: number;
 };
 
-export default function Character({ x }: CharacterProps) {
+export default function Character({ x, y }: CharacterProps) {
     return (
-        <>
+        <Group
+            transform={[
+                { translateX: x },
+                { translateY: y }
+            ]}
+        >
             {/* Legs */}
             <Rect
-                x={x - 10}
-                y={395}
+                x={-10}
+                y={10}
                 width={7}
                 height={25}
                 color="#3F4A3C"
             />
 
             <Rect
-                x={x + 3}
-                y={395}
+                x={+3}
+                y={10}
                 width={7}
                 height={25}
                 color="#3F4A3C"
@@ -27,36 +33,39 @@ export default function Character({ x }: CharacterProps) {
 
             {/* Arms */}
             <Rect
-                x={x - 20}
-                y={380}
+                x={-20}
+                y={-5}
                 width={7}
                 height={25}
                 color="#6B4F35"
+                transform={[{ rotate: (.3) }]}
             />
 
             <Rect
-                x={x + 13}
-                y={380}
+                x={13}
+                y={-5}
                 width={7}
                 height={25}
                 color="#6B4F35"
+                transform={[{ rotate: (-.3) }]}
             />
 
             {/* Body */}
             <Circle
-                cx={x}
-                cy={390}
+                cx={0}
+                cy={0}
                 r={18}
                 color="#6B4F35"
+                transform={[{ scaleX: 0.85 }]}
             />
 
             {/* Head */}
             <Circle
-                cx={x}
-                cy={365}
+                cx={0}
+                cy={-25}
                 r={12}
                 color="#F2C7A5"
             />
-        </>
+        </Group>
     );
 }
