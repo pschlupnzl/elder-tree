@@ -125,7 +125,7 @@ export default function Game() {
 
         <GrassField />
 
-        <Tree x={192} y={220} />
+        <Tree x={192} y={220} size={500} />
 
         {/* Player */}
         <Character x={playerX} y={playerY} />
