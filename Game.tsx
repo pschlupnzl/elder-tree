@@ -24,7 +24,6 @@ export default function Game() {
     down: false
   });
 
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
@@ -123,10 +122,11 @@ export default function Game() {
           color="#A8C686"
         />
 
-        <GrassField />
 
         <Tree x={192} y={420} size={400} type="elder" />
-        <Tree x={650} y={480} size={300} />
+        <Tree x={500} y={430} size={300} />
+
+        <GrassField />
 
         {/* Player */}
         <Character x={playerX} y={playerY} />
