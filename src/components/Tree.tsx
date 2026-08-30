@@ -14,8 +14,8 @@ type TreeProps = {
 };
 
 export default function Tree({ x, y, size, type = 'forest' }: TreeProps) {
-    const image = useImage(
-        type === 'elder' ? elderTree.uri : forestTree.uri);
+    const imageUri = type === 'elder' ? elderTree.uri : forestTree.uri;
+d    const image = useImage(imageUri);
 
     const { aspectRatio } = useMemo(() => {
         const width = image?.width() ?? 1;
